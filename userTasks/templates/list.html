@@ -1,0 +1,44 @@
+{% extends "baseLayout.html" %}
+{% load static %}
+{% block title %}
+Les Tâches
+{% endblock %}
+{% block styles %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'node_modules/@fortawesome/fontawesome-free/css/all.css' %}">
+{% endblock %}
+{% block content %}
+<h1>Liste des tâches</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Auteur</th>
+            <th scope="col">Nom de la tache</th>
+            <th scope="col">Description de la tache</th>
+            <th scope="col">Date planifiée</th>
+            <th scope="col">Date prévue</th>
+        </tr>
+    </thead>
+    {% for elem in objets %}
+    <tbody>
+        <tr>
+            <td>{{elem.user}}</td>
+            <td>{{elem.name}}</td>
+            <td>{{elem.description}}</td>
+            <td>{{elem.schedule_date}}</td>
+            <td>{{elem.due_date}}</td>
+            <td>
+                {% if elem.closed %}
+                <i class="fas fa-lock"></i>
+                {% else %}
+                <i class="fas fa-lock-open"></i>
+                {% endif %}
+            </td>
+            <td><button class="btn btn-primary">Ajouter</button></td>
+            <td><button class="btn btn-danger">Supprimer</button></td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+<button class="btn btn-success" style="width: 100%; font-weight: bolder;">+</button>
+{% endblock %}
