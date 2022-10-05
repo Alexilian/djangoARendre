@@ -9,33 +9,47 @@ from django.forms.widgets import RadioSelect , CheckboxSelectMultiple
 from django.forms.widgets import SelectDateWidget
 from django.utils import timezone
 from datetime import date
+from django.forms import ModelForm, DateInput
 
 # Create your views here.
 
-def task_list(request):
+def task_list(request, param=""):
+    if param == "":
+        Task.objects.get(id=param).delete()
     objets = Task.objects.all().order_by('due_date')
     return render(request, template_name = 'list.html', context = {'objets' : objets})
 
-def objectToTuple():
-    listF = []
-    for objet in User.objects.all():
-        listF.append((objet, objet))
-    return tuple(listF)
+def task_detail(request, param):
+    objet = Task.objects.get(id=param)
+    return render(request, template_name = 'detail.html', context = {'objet' : objet})
 
-class TaskForm(forms.Form):
-    name = forms.CharField(max_length=250)
-    description = forms.CharField(widget=forms.Textarea(attrs={'cols':60,'rows':10}))
-    closed = forms.BooleanField(required=False)
-    schedule_date = DateField(widget=SelectDateWidget(years=('2022',)))
-    due_date = DateField(widget=SelectDateWidget(years=('2022',)))
-    user = forms.CharField(widget=forms.Select(choices=objectToTuple()))
+def task_delete(request, param):
+    Task.objects.get(id=param).delete()
+
+
+class TaskForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(TaskForm, self).__init__(*args, **kwargs)
+        self.fields["name"].label = "Nom"
+        self.fields["description"].label = "description"
+        self.fields["due_date"].label = "due_date"
+        self.fields["schedule_date"].label = "schedule_date"
+        self.fields["closed"].label = "closed"
+        user = forms.MultipleChoiceField(widget=forms.SelectMultiple, choices=User.objects.all(), required=False)
+
+    class Meta:
+        model = Task
+        fields = ("name", "description", "due_date", "schedule_date", "user", "closed")
+        widgets = {
+            "due_date": DateInput(),
+            "schedule_date": DateInput()
+        }
     
-    def task(request):
-        task_form = TaskForm()
-        if request.method == "POST":
-            task_form = TaskForm(request.POST)
-
-            if task_form.is_valid():
-                task_form = Task.save()
-                return render(request ,'addedTask.html', {'form_post':task_form})
-        return render(request ,'addTask.html', {'task_form':task_form})
+def task(request):
+    task_form = TaskForm()
+    if request.method == "POST":
+        task_form = TaskForm(request.POST)
+        if task_form.is_valid():
+            new_task = task_form.save()
+            return render(request, template_name = 'detail.html', context = {'objet' : new_task})
+    return render(request ,'addTask.html', {'task_form':task_form})

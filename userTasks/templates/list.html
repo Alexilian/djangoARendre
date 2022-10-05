@@ -34,8 +34,9 @@ Les Tâches
                 <i class="fas fa-lock-open"></i>
                 {% endif %}
             </td>
-            <td><button class="btn btn-primary">Ajouter</button></td>
-            <td><button class="btn btn-danger">Supprimer</button></td>
+            <td><button class="btn btn-primary">Modifier</button></td>
+            <td><a href="delete/{{task_delete}}"><button class="btn btn-danger">Supprimer</button></a></td>
+            <td><a href="{{elem.id}}"><button class="btn btn-info"><i class="fa-solid fa-magnifying-glass"></i></button></a></td>
         </tr>
     </tbody>
     {% endfor %}

@@ -1,0 +1,33 @@
+{% extends "baseLayout.html" %}
+{% load static %}
+{% block title %}
+Les Tâches
+{% endblock %}
+{% block styles %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'node_modules/@fortawesome/fontawesome-free/css/all.css' %}">
+{% endblock %}
+{% block content %}
+
+<div class="card" style="width: 60rem; font-size: 2em;">
+    <div class="card-header">
+        <div style="display: flex; justify-content: space-between;">
+        {{objet.name}}
+        <h5>
+        {% if objet.closed %}
+            <i class="fas fa-lock"></i>
+        {% else %}
+            <i class="fas fa-lock-open fa-xl"></i>
+        {% endif %}
+        </h5>
+        </div>
+        <h6 class="card-subtitle mb-2 text-muted">Par {{objet.user}} le {{objet.creation_date}}</h6>
+    </div>
+    <div class="card-body">
+      <p class="card-text">Description: {{objet.description}}</p>
+      <p class="card-text">Date d'échéance: {{objet.due_date}}</p>
+      <p class="card-text">Date prévue: {{objet.schedule_date}}</p>
+    </div>
+  </div>
+
+{% endblock %}
