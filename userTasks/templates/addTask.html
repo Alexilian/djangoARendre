@@ -1,3 +1,18 @@
-{{ task_form.as_p }}
-<br/>
-{{ simple_form.as_p }}
+{% extends "baseLayout.html" %}
+{% load static %}
+{% block title %}
+Les Tâches
+{% endblock %}
+{% block styles %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'node_modules/@fortawesome/fontawesome-free/css/all.css' %}">
+{% endblock %}
+{% block content %}
+
+<form action="../taskAdded/" method="POST">
+    {% csrf_token %}
+    {{ task_form.as_p }}
+    <button type="submit">Sauvegarder</button>
+</form>
+
+{% endblock %}
