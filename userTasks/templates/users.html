@@ -1,0 +1,30 @@
+{% extends "baseLayout.html" %}
+{% load static %}
+{% block title %}
+Les Tâches
+{% endblock %}
+{% block styles %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'node_modules/@fortawesome/fontawesome-free/css/all.css' %}">
+{% endblock %}
+{% block content %}
+<h1>Liste des utilisateurs</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Prénom</th>
+        </tr>
+    </thead>
+    {% for elem in objets %}
+    <tbody>
+        <tr>
+            <td>{{elem.name}}</td>
+            <td>{{elem.surname}}</td>
+            <td><a href="/userTasks/users/delete/{{elem.id}}"><button class="btn btn-danger">Supprimer</button></a></td>
+        </tr>
+    </tbody>
+    {% endfor %}
+</table>
+<a href="../addUser/"><button class="btn btn-success" style="width: 100%; font-weight: bolder;">+</button></a>
+{% endblock %}

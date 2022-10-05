@@ -13,9 +13,9 @@ from django.forms import ModelForm, DateInput
 
 # Create your views here.
 
-def task_list(request, param=""):
-    if param == "":
-        Task.objects.get(id=param).delete()
+def task_list(request, param1="", param2=""):
+    if param1 == "delete":
+        Task.objects.get(id=param2).delete()
     objets = Task.objects.all().order_by('due_date')
     return render(request, template_name = 'list.html', context = {'objets' : objets})
 
@@ -23,8 +23,12 @@ def task_detail(request, param):
     objet = Task.objects.get(id=param)
     return render(request, template_name = 'detail.html', context = {'objet' : objet})
 
-def task_delete(request, param):
-    Task.objects.get(id=param).delete()
+
+def user_list(request, param1="", param2=""):
+    if param1 == "delete":
+        User.objects.get(id=param2).delete()
+    objets = User.objects.all().order_by('name')
+    return render(request, template_name = 'users.html', context = {'objets' : objets})
 
 
 class TaskForm(ModelForm):
@@ -53,3 +57,23 @@ def task(request):
             new_task = task_form.save()
             return render(request, template_name = 'detail.html', context = {'objet' : new_task})
     return render(request ,'addTask.html', {'task_form':task_form})
+
+class UserForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        self.fields["name"].label = "Nom"
+        self.fields["surname"].label = "Nom de famille"
+
+    class Meta:
+        model = User
+        fields = ("name", "surname")
+
+def user(request):
+    user_form = UserForm()
+    if request.method == "POST":
+        user_form = UserForm(request.POST)
+        if user_form.is_valid():
+            user_form.save()
+            objets = User.objects.all().order_by('name')
+            return render(request, template_name = 'users.html', context = {'objets' : objets})
+    return render(request ,'addUser.html', {'user_form':user_form})
