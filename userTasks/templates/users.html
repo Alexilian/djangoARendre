@@ -21,7 +21,7 @@ Les Tâches
         <tr>
             <td>{{elem.name}}</td>
             <td>{{elem.surname}}</td>
-            <td><a href="/userTasks/users/delete/{{elem.id}}"><button class="btn btn-danger">Supprimer</button></a></td>
+            <td style="display: flex; justify-content: flex-end;"><a href="/userTasks/users/delete/{{elem.id}}" style="margin-right: 10px;"><button class="btn btn-danger">Supprimer</button></a><a href="/userTasks/list/user/{{elem.id}}/"><button class="btn btn-info">Voir Taches</i></button></a></td>
         </tr>
     </tbody>
     {% endfor %}

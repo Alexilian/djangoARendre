@@ -13,10 +13,17 @@ from django.forms import ModelForm, DateInput
 
 # Create your views here.
 
+def home(request):
+    return render(request, template_name = 'home.html')
+
 def task_list(request, param1="", param2=""):
     if param1 == "delete":
         Task.objects.get(id=param2).delete()
-    objets = Task.objects.all().order_by('due_date')
+        objets = Task.objects.all().order_by('due_date')
+    elif param1 == "user":
+        objets = Task.objects.all().filter(user=User.objects.get(id=param2))
+    else:
+        objets = Task.objects.all().order_by('due_date')
     return render(request, template_name = 'list.html', context = {'objets' : objets})
 
 def task_detail(request, param):
@@ -26,8 +33,6 @@ def task_detail(request, param):
 def user_list(request, param1="", param2=""):
     if param1 == "delete":
         User.objects.get(id=param2).delete()
-    elif param1 == "user":
-        User.objects.get(user=user)
     objets = User.objects.all().order_by('name')
     return render(request, template_name = 'users.html', context = {'objets' : objets})
 

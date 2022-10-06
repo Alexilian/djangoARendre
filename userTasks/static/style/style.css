@@ -1,0 +1,36 @@
+nav {
+    background-color: #222;
+    height: 75px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 15vh;
+}
+
+nav a{
+    text-decoration: none;
+    color:white;
+    font-size: 200%;
+    transition: font-size 1s;
+}
+
+nav a:hover{
+    color: lightgray;
+    font-size: 225%;
+    transition: font-size 1s;
+}
+
+.cardSpe{
+    display: flex;
+    justify-content: space-between;
+}
+
+.cardDetail{
+    width: 60rem;
+    font-size: 2em;
+}
+
+.btnList{
+    width: 100%;
+    font-weight: bolder;
+}

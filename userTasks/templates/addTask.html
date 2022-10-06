@@ -1,5 +1,6 @@
 {% extends "baseLayout.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block title %}
 Les Tâches
 {% endblock %}
@@ -8,14 +9,11 @@ Les Tâches
 <link rel="stylesheet" href="{% static 'node_modules/@fortawesome/fontawesome-free/css/all.css' %}">
 {% endblock %}
 {% block content %}
+<h1>Ajouter une tâche</h1>
 
-<form action="/userTasks/addTask/" method="POST">
+<form action="/userTasks/addTask/" method="POST" class="card px-4 py-4">
     {% csrf_token %}
-    {{ task_form.as_p }}
-    <button type="submit">Sauvegarder</button>
+    {{ task_form | crispy }}
+    <button type="submit" class="btn btn-success mt-3">Sauvegarder</button>
 </form>
-
-    {% if new_tache is not None %}
-        {{new_tache.name}}
-    {% endif %}
 {% endblock %}
