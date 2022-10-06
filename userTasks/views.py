@@ -23,13 +23,13 @@ def task_detail(request, param):
     objet = Task.objects.get(id=param)
     return render(request, template_name = 'detail.html', context = {'objet' : objet})
 
-
 def user_list(request, param1="", param2=""):
     if param1 == "delete":
         User.objects.get(id=param2).delete()
+    elif param1 == "user":
+        User.objects.get(user=user)
     objets = User.objects.all().order_by('name')
     return render(request, template_name = 'users.html', context = {'objets' : objets})
-
 
 class TaskForm(ModelForm):
     def __init__(self, *args, **kwargs):
@@ -77,3 +77,14 @@ def user(request):
             objets = User.objects.all().order_by('name')
             return render(request, template_name = 'users.html', context = {'objets' : objets})
     return render(request ,'addUser.html', {'user_form':user_form})
+
+def task_edit(request, param):
+    task = Task.objects.get(id=param)
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            return render(request, template_name = 'detail.html', context = {'objet' : task})
+    else:
+        form = TaskForm(instance=task)
+    return render(request,'updateTask.html',{'form': form})
