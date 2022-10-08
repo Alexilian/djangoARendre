@@ -14,7 +14,7 @@ Les Tâches
 <form action="/userTasks/addUser/" method="POST" class="card px-4 py-4">
     {% csrf_token %}
     {{ user_form | crispy }}
-    <button type="submit" class="btn btn-success mt-3">Sauvegarder</button>
+    <button type="submit" id="submit" class="btn btn-success mt-3">Sauvegarder</button>
 </form>
 
 {% endblock %}

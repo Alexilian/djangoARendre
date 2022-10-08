@@ -33,7 +33,7 @@ def task_detail(request, param):
 def user_list(request, param1="", param2=""):
     if param1 == "delete":
         User.objects.get(id=param2).delete()
-    objets = User.objects.all().order_by('name')
+    objets = User.objects.all()
     return render(request, template_name = 'users.html', context = {'objets' : objets})
 
 class TaskForm(ModelForm):
