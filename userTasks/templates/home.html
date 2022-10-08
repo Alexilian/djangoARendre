@@ -1,57 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+{% load static %}
+<html class="navMenu" lang="fr">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% block metas %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    {% endblock %}
+    {% block styles %}
+    <link rel="stylesheet" href="{% static 'style/style.css' %}">
+    {% endblock %}
 </head>
-<body>
-    <div class="container">
-        <a class="content" href="">Liste des taches</a>
-        <a class="content" href="">Liste des utilisateurs</a>
+{% block title %}
+<title>
+    Les Tâches
+</title>
+{% endblock %}
+<body class="navMenu">
+    <div class="containerNM">
+        <div class="contentNM">Liste des taches</div>
+        <div class="contentNM">Liste des utilisateurs</div>
     </div>
+{% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="{% static 'scripts/script.js' %}"></script>
+{% endblock %}
 </body>
 </html>
-
-<style>
-html,
-body {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-}
-
-.container {
-    align-items: center;
-    display: flex;
-    justify-content: space-around;
-    height: 100%;
-    width: 100%;
-}
-
-.content{
-    align-items: center;
-    display: flex;
-    justify-content: space-around;
-    font-size: 300%;
-    color: lightgray;
-    background-color: #222;
-    height: 100%;
-    width: 100%;
-    transition: background-color 1s;
-    transition: font-size 1s;
-}
-.content:hover{
-    background-color: #333;
-    font-size: 350%;
-    transition: background-color 1s;
-    transition: font-size 1s;
-}
-
-.container:active .content {
-    height: 50%;
-}
-
-
-</style>

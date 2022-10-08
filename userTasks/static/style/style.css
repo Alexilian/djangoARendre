@@ -1,22 +1,31 @@
 nav {
-    background-color: #222;
-    height: 75px;
+    align-items: center;
     display: flex;
     justify-content: space-around;
-    align-items: center;
-    margin-bottom: 15vh;
+    height: 75px;
+    width: 100%;
+    transition: height 0.5s;
+    margin-bottom: 50px;
 }
 
 nav a{
     text-decoration: none;
-    color:white;
-    font-size: 200%;
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    font-size: 300%;
+    color: lightgray;
+    background-color: #222;
+    height: 100%;
+    width: 100%;
+    transition: background-color 1s;
     transition: font-size 1s;
 }
-
 nav a:hover{
+    background-color: #333;
     color: lightgray;
-    font-size: 225%;
+    font-size: 350%;
+    transition: background-color 1s;
     transition: font-size 1s;
 }
 
@@ -33,4 +42,43 @@ nav a:hover{
 .btnList{
     width: 100%;
     font-weight: bolder;
+}
+
+.navMenu {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+.containerNM {
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+    transition: height 0.5s;
+}
+
+.contentNM{
+    text-decoration: none;
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+    font-size: 300%;
+    color: lightgray;
+    background-color: #222;
+    height: 100%;
+    width: 100%;
+    transition: background-color 1s;
+    transition: font-size 1s;
+}
+.contentNM:hover{
+    background-color: #333;
+    font-size: 350%;
+    transition: background-color 1s;
+    transition: font-size 1s;
+}
+
+.containerNM.clicked{
+    height: 75px;
 }
